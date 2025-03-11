@@ -1,0 +1,100 @@
+/* Style for the chatbot */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fa;
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.chatbot {
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.chatbot-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+
+#close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.chatbox {
+    height: 320px;
+    padding: 10px;
+    overflow-y: scroll;
+    flex-grow: 1;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;  /* Set a light background color for visibility */
+}
+
+.user {
+    color: #007bff;  /* User messages in blue */
+    margin-bottom: 10px;
+}
+
+.bot {
+    color: #333;  /* Bot messages in black */
+    margin-bottom: 10px;
+    font-style: italic;  /* Optional: Make bot messages look distinct */
+}
+
+.user-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin: 10px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:disabled {
+    background-color: #ccc;
+}
+
+.open-chat-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.open-chat-btn:hover {
+    background-color: #0056b3;
+}

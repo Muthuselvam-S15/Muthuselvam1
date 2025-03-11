@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(45, 44, 44);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .profile-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #7b5adf;
+        }
+        .profile-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #f0f0f0;
+        }
+        .profile-container button {
+            background: #7b5adf;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .profile-container button:hover {
+            background: #6843c4;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>User Profile</h2>
+        <img id="profileImage" src="pf.jpg" alt="Profile Picture" class="profile-pic">
+        <input type="file" id="imageUpload" class="hidden" accept="image/*">
+        <button id="changeImageBtn" onclick="document.getElementById('imageUpload').click();">Change Profile Image</button>
+        <button id="removeImageBtn" class="hidden">Remove Image</button>
+        <form id="profileForm">
+            <input type="text" id="name" placeholder="Enter your name" required disabled>
+            <input type="email" id="email" placeholder="Enter your email" required disabled>
+            <input type="text" id="username" placeholder="Enter your username" required disabled>
+            <button type="button" id="editSaveBtn">Edit Profile</button>
+        </form>
+    </div>
+    <script>
+        const button = document.getElementById('editSaveBtn');
+        const inputs = document.querySelectorAll('#profileForm input');
+        const removeImageBtn = document.getElementById('removeImageBtn');
+        const profileImage = document.getElementById('profileImage');
+        const changeImageBtn = document.getElementById('changeImageBtn');
+
+        button.addEventListener('click', function() {
+            if (button.innerText === "Edit Profile") {
+                inputs.forEach(input => input.removeAttribute("disabled"));
+                button.innerText = "Save Changes";
+            } else {
+                inputs.forEach(input => input.setAttribute("disabled", "true"));
+                localStorage.setItem('name', document.getElementById('name').value);
+                localStorage.setItem('email', document.getElementById('email').value);
+                localStorage.setItem('username', document.getElementById('username').value);
+                button.innerText = "Edit Profile";
+            }
+        });
+
+        window.onload = function() {
+            document.getElementById('name').value = localStorage.getItem('name') || "";
+            document.getElementById('email').value = localStorage.getItem('email') || "";
+            document.getElementById('username').value = localStorage.getItem('username') || "";
+            const savedImage = localStorage.getItem('profileImage');
+            if (savedImage) {
+                profileImage.src = savedImage;
+                removeImageBtn.classList.remove('hidden');
+            }
+        };
+
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result;
+                    localStorage.setItem('profileImage', e.target.result);
+                    removeImageBtn.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImageBtn.addEventListener('click', function() {
+            profileImage.src = "default-profile.png";
+            localStorage.removeItem('profileImage');
+            removeImageBtn.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
